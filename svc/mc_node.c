@@ -5,8 +5,14 @@
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
 #include <std_msgs/msg/int32.h>
+#include <rmw_microros/rmw_microros.h>
+
+#include "pico/stdlib.h"
+#include "pico_uart_transports.h"
 
 #include "node_helpers.h"
+
+const uint LED_PIN = 25;
 
 node_data nd;
 
@@ -22,7 +28,9 @@ void timer_callback(rcl_timer_t *timer, int64_t last_call_time)
 int main()
 {
 	init_transport();
-	init_node_data(&nd, "pico node");
+
+    gpio_init(LED_PIN);
+    gpio_set_dir(LED_PIN, GPIO_OUT);
 
     rcl_timer_t timer;
 
@@ -38,6 +46,7 @@ int main()
         return ret;
     }
 
+	init_node_data (&nd, "pico_node");
     rclc_publisher_init_default(
         &publisher,
         &(nd.node),
@@ -51,6 +60,8 @@ int main()
         timer_callback);
 
     rclc_executor_add_timer(&(nd.executor), &timer);
+
+    gpio_put(LED_PIN, 1);
 
     msg.data = 0;
     while (true)

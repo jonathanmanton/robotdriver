@@ -12,7 +12,7 @@ pico_sdk_init()
 link_directories($ENV{MICRO_ROS_PICO_SDK_PATH}/libmicroros)
 
 set(EXENAME svctest)
-set(SWD_CFG ../swd/raspberrypi5-swd.cfg)
+set(SWD_CFG ${CMAKE_CURRENT_SOURCE_DIR}/../swd/raspberrypi5-swd.cfg)
 add_custom_target(flash 
 	openocd -f ${SWD_CFG} -f target/rp2040.cfg -c \"program ${EXENAME}.elf verify reset exit\"
 )
