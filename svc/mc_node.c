@@ -43,7 +43,8 @@ void timer_callback(rcl_timer_t *timer, int64_t last_call_time)
 	RightMotorStatus_msg.motor_effort = msg.data * 3.14;
 
 	ret += rcl_publish(&RightMotorStatus_publisher, &RightMotorStatus_msg, NULL);
-/*	rcl_publish(&RightControllerStatus_publisher, &RightControllerStatus_msg, NULL);
+/*
+	rcl_publish(&RightControllerStatus_publisher, &RightControllerStatus_msg, NULL);
 	rcl_publish(&LeftMotorStatus_publisher, &LeftMotorStatus_msg, NULL);
 	rcl_publish(&LeftControllerStatus_publisher, &LeftControllerStatus_msg, NULL);
 */

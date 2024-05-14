@@ -23,7 +23,6 @@ target_link_libraries(${EXENAME} pico_stdlib microros)
 
 target_include_directories(${EXENAME} 
 	PUBLIC $ENV{MICRO_ROS_PICO_SDK_PATH}/libmicroros/include
-	/home/jonathan/ros2_ws/build/robotdriver_interfaces/rosidl_generator_c
 )
 
 pico_enable_stdio_usb(${EXENAME} 1)
