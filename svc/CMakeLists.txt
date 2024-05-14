@@ -21,7 +21,10 @@ add_executable(${EXENAME} mc_node.c node_helpers.c pico_uart_transport.c)
 
 target_link_libraries(${EXENAME} pico_stdlib microros)
 
-target_include_directories(${EXENAME} PUBLIC $ENV{MICRO_ROS_PICO_SDK_PATH}/libmicroros/include)
+target_include_directories(${EXENAME} 
+	PUBLIC $ENV{MICRO_ROS_PICO_SDK_PATH}/libmicroros/include
+	/home/jonathan/ros2_ws/build/robotdriver_interfaces/rosidl_generator_c
+)
 
 pico_enable_stdio_usb(${EXENAME} 1)
 pico_enable_stdio_uart(${EXENAME} 0)
