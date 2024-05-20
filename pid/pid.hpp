@@ -116,7 +116,8 @@ namespace control_toolbox
 */
 /***************************************************/
 
-class CONTROL_TOOLBOX_PUBLIC Pid
+// class CONTROL_TOOLBOX_PUBLIC Pid
+class Pid
 {
 public:
   /*!

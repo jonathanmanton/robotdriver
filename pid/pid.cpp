@@ -48,6 +48,8 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <iostream>
+#include <stdexcept>
 
 // REMOVE #include "control_toolbox/pid.hpp"
 #include "pid.hpp"
@@ -58,9 +60,11 @@ Pid::Pid(double p, double i, double d, double i_max, double i_min, bool antiwind
 : gains_buffer_()
 {
   if (i_min > i_max) {
-    throw std::invalid_argument("received i_min > i_max");
+    // throw std::invalid_argument("received i_min > i_max");
+  	setGains(p, i, d, 0, 0, false);
+  } else {
+  	setGains(p, i, d, i_max, i_min, antiwindup);
   }
-  setGains(p, i, d, i_max, i_min, antiwindup);
 
   reset();
 }

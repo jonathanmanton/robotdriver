@@ -1,3 +1,7 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <rmw_microros/rmw_microros.h>
 
 #include "pico/stdlib.h"
@@ -10,6 +14,9 @@ typedef struct node_data {
 	rclc_executor_t executor;
 } node_data;
 
-void init_node_data(node_data*, char*);
+void init_node_data(node_data*, const char*, int);
 void init_transport();
 
+#ifdef __cplusplus
+}
+#endif

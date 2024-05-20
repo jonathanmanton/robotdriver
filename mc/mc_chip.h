@@ -1,3 +1,7 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // controls the breakout board for the motor driver
 // make sure to only use GPIOs for PWMs that do not differ by 16.
 // e.g., don't use 3 for one PWM, and 19 for the other, because it won't work
@@ -23,3 +27,7 @@ void init_channel(mc_channel* channel, uint IN1_pin, uint IN2_pin, uint PWM_pin,
 void set_effort(mc_channel* channel, float effort);
 
 void stop(mc_channel* channel);
+
+#ifdef __cplusplus
+}
+#endif

@@ -8,18 +8,31 @@ SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -ffunction-sections -fdata-sections")
 
 pico_sdk_init()
 
-
 link_directories($ENV{MICRO_ROS_PICO_SDK_PATH}/libmicroros)
 
 set(EXENAME svctest)
 set(SWD_CFG ${CMAKE_CURRENT_SOURCE_DIR}/../swd/raspberrypi5-swd.cfg)
+
 add_custom_target(flash 
-	openocd -f ${SWD_CFG} -f target/rp2040.cfg -c \"program ${EXENAME}.elf verify reset exit\"
+	openocd -f ${SWD_CFG} -f target/rp2040.cfg -c \"program ${EXENAME}.elf verify reset exit\")
+
+add_executable(${EXENAME} 
+	mc_node.cpp 
+	node_helpers.c 
+	pico_uart_transport.c 
+	../encoder/quadrature_encoder.c 
+	../mc/mc_chip.c
+	../pid/pid.cpp
 )
 
-add_executable(${EXENAME} mc_node.c node_helpers.c pico_uart_transport.c)
+pico_generate_pio_header(${EXENAME} ${CMAKE_CURRENT_LIST_DIR}/../encoder/quadrature_encoder.pio)
 
-target_link_libraries(${EXENAME} pico_stdlib microros)
+target_link_libraries(${EXENAME} 
+	pico_stdlib 
+	hardware_pwm 
+	hardware_pio 
+	microros
+)
 
 target_include_directories(${EXENAME} 
 	PUBLIC $ENV{MICRO_ROS_PICO_SDK_PATH}/libmicroros/include
